@@ -5,6 +5,7 @@ import '../../style/navbarStyle.css';
 import { User } from '../../models/User';
 import Modal from 'react-modal';
 import Login from './Login';
+import Register from './Register';
 
 interface NavbarProps {
   user: User | null;
@@ -13,6 +14,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<'login' | 'register'>('login');
 
   const handleLogout = () => {
     window.localStorage.removeItem('jwt');
@@ -55,13 +57,13 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
             </>
           ) : (
             <>
-              <button onClick={() => setIsModalOpen(true)} className="btn btn-primary me-2">Zaloguj</button>
-              <Link to="/register" className="btn btn-secondary">Zarejestruj</Link>
+              <button onClick={() => {setIsModalOpen(true); setModalContent('login')}} className="btn btn-primary me-2">Zaloguj</button>
+              <button onClick={() => {setIsModalOpen(true); setModalContent('register')}} className="btn btn-secondary">Zarejestruj</button>
             </>
           )}
         </div>
         <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-          <Login setUser={setUser} />
+          {modalContent === 'login' ? <Login setUser={setUser} /> : <Register setIsModalOpen={setIsModalOpen} />}
         </Modal>
       </div>
     </nav>
