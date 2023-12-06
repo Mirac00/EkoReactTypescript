@@ -1,3 +1,4 @@
+// Navbar.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -19,6 +20,10 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
   const handleLogout = () => {
     window.localStorage.removeItem('jwt');
     setUser(null);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -52,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
         <div className="d-flex">
           {user ? (
             <>
-              <span>{user.username}</span>
+              <span className="d-flex align-items-center fs-5 me-3">Witaj: {user.username}</span>
               <button className="btn btn-secondary" onClick={handleLogout}>Wyloguj</button>
             </>
           ) : (
@@ -62,8 +67,8 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
             </>
           )}
         </div>
-        <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-          {modalContent === 'login' ? <Login setUser={setUser} /> : <Register setIsModalOpen={setIsModalOpen} />}
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+          {modalContent === 'login' ? <Login setUser={setUser} closeModal={closeModal} /> : <Register setIsModalOpen={setIsModalOpen} />}
         </Modal>
       </div>
     </nav>

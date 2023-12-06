@@ -1,3 +1,4 @@
+// Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../../models/User';
@@ -6,9 +7,10 @@ import { UserService } from '../../services/UserService';
 
 interface LoginProps {
   setUser: (user: User | null) => void;
+  closeModal: () => void; // Add closeModal prop
 }
 
-const Login: React.FC<LoginProps> = ({ setUser }) => {
+const Login: React.FC<LoginProps> = ({ setUser, closeModal }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
     if (user) {
       window.localStorage.setItem('jwt', user.token);
       setUser(user);
+      closeModal(); // Close the modal after successful login
       navigate('/');
     } else {
       alert('Nieprawidłowy login lub hasło');

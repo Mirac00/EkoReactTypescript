@@ -25,8 +25,15 @@ const Register: React.FC<RegisterProps> = ({ setIsModalOpen }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const response = await register(registerRequest);
-    setMessage(response.message);
+    try {
+      console.log('Submitting registration request:', registerRequest); // Add this line for debugging
+      const response = await register(registerRequest);
+      console.log('Registration response:', response); // Add this line for debugging
+      setMessage(response.message);
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setMessage('Wystąpił błąd podczas rejestracji');
+    }
   };
 
   return (
@@ -49,7 +56,9 @@ const Register: React.FC<RegisterProps> = ({ setIsModalOpen }) => {
           <label>Hasło</label>
           <input type="password" name="password" onChange={handleInputChange} className="form-control" required />
         </div>
-        <button type="submit" className="btn btn-primary">Zarejestruj</button>
+        <button type="submit" className="btn btn-primary">
+          Zarejestruj
+        </button>
       </form>
       {message && <p>{message}</p>}
     </div>
