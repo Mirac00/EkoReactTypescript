@@ -10,6 +10,7 @@ function Home() {
       <div className="gird">
         <div className="row">
           <div className="col">
+            <p>aaaa</p>
             <Posts/>
           </div>
         </div>
