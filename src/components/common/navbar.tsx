@@ -95,10 +95,24 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
             </>
           )}
         </div>
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal} className="modal-dialog-centered">
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="modal-dialog-centered"
+          overlayClassName="modal-overlay" // Dodaj overlayClassName
+        >
           <div className="modal-content">
-            <button type="button" className="btn-close m-2" aria-label="Close" onClick={closeModal}></button>
-            {modalContent === 'login' ? <Login setUser={setUser} closeModal={closeModal} /> : <Register setIsModalOpen={setIsModalOpen} />}
+            <button
+              type="button"
+              className="btn-close m-2"
+              aria-label="Close"
+              onClick={closeModal}
+            ></button>
+            {modalContent === 'login' ? (
+              <Login setUser={setUser} closeModal={closeModal} />
+            ) : (
+              <Register setIsModalOpen={setIsModalOpen} />
+            )}
           </div>
         </Modal>
       </div>
