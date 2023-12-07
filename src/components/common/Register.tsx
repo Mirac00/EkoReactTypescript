@@ -56,7 +56,7 @@ const Register: React.FC<RegisterProps> = ({ setIsModalOpen }) => {
           <label>Hasło</label>
           <input type="password" name="password" onChange={handleInputChange} className="form-control" required />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary m-2">
           Zarejestruj
         </button>
       </form>

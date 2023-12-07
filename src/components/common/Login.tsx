@@ -7,7 +7,7 @@ import { UserService } from '../../services/UserService';
 
 interface LoginProps {
   setUser: (user: User | null) => void;
-  closeModal: () => void; // Add closeModal prop
+  closeModal: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({ setUser, closeModal }) => {
@@ -26,7 +26,7 @@ const Login: React.FC<LoginProps> = ({ setUser, closeModal }) => {
     if (user) {
       window.localStorage.setItem('jwt', user.token);
       setUser(user);
-      closeModal(); // Close the modal after successful login
+      closeModal();
       navigate('/');
     } else {
       alert('Nieprawidłowy login lub hasło');
@@ -34,10 +34,30 @@ const Login: React.FC<LoginProps> = ({ setUser, closeModal }) => {
   };
 
   return (
-    <div>
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Login" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Hasło" />
-      <button onClick={handleLogin}>Zaloguj</button>
+    <div className="container">
+      <form>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">Login</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Hasło</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="button" className="btn btn-primary m-2" onClick={handleLogin}>Zaloguj</button>
+      </form>
     </div>
   );
 };
