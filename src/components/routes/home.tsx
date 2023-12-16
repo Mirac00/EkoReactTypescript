@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Posts from '../common/Posts';
+import PostComponent from '../common/PostComponent';
+
 
 
 function Home() {
@@ -10,7 +11,7 @@ function Home() {
       <div className="gird">
         <div className="row">
           <div className="col">
-            <Posts/>
+            <PostComponent/>
           </div>
         </div>
       </div>
