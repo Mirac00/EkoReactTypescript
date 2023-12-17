@@ -1,5 +1,5 @@
 // Navbar.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../style/navbarStyle.css';
@@ -8,7 +8,8 @@ import Modal from 'react-modal';
 import Login from './Login';
 import Register from './Register';
 
-import '../../style/navbarStyle.css'; // Dodaj import dla stylów
+import '../../style/navbarStyle.css';
+import { UserService } from '../../services/UserService';
 
 interface NavbarProps {
   user: User | null;
@@ -18,6 +19,19 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<'login' | 'register'>('login');
+  const [isLoading, setIsLoading] = useState(true); // Dodaj stan ładowania
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const jwt = window.localStorage.getItem('jwt');
+      if (jwt) {
+        const user: User | null = await UserService.getUserByToken(jwt);
+        setUser(user);
+      }
+      setIsLoading(false); // Ustaw stan ładowania na false po sprawdzeniu użytkownika
+    };
+    checkUser();
+  }, [setUser]);
 
   const handleLogout = () => {
     window.localStorage.removeItem('jwt');
@@ -27,6 +41,10 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  if (isLoading) {
+    return null; // Zwróć null, jeśli aplikacja jest w trakcie ładowania
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
