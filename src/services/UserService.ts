@@ -1,5 +1,6 @@
 // UserService.ts
-import axios from 'axios';
+
+import axios, { AxiosError } from 'axios';
 import { User } from '../models/User';
 import { AuthenticateRequest } from '../models/AuthenticateRequest';
 
@@ -22,6 +23,17 @@ export class UserService {
       return response.data;
     } catch (error) {
       console.error(error);
+
+      // Explicitly type the error object as AxiosError
+      const axiosError = error as AxiosError;
+
+      // Check if the error is due to token expiration
+      if (axiosError.response && axiosError.response.status === 401) {
+        // Token expired, handle logout
+        window.localStorage.removeItem('jwt');
+        return null;
+      }
+
       return null;
     }
   }
