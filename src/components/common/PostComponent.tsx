@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { PostService } from '../../services/PostService';
 import { Post } from '../../models/PostModel';
 
-function Home() {
+function PostComponent() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const postsData = await PostService.getAllPosts();
-        setPosts(postsData);
+        // Sortowanie postów od najnowszego do najstarszego na podstawie id
+        const sortedPosts = postsData.sort((a, b) => b.id - a.id);
+        setPosts(sortedPosts);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -41,4 +43,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default PostComponent;
