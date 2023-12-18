@@ -8,7 +8,6 @@ import { User } from '../../models/User';
 import Modal from 'react-modal';
 import Login from './Login';
 import Register from './Register';
-
 import '../../style/navbarStyle.css';
 import { UserService } from '../../services/UserService';
 
@@ -53,21 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
         <Link className="navbar-brand" to="/">
           Eko Project
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          {/* ... (rest of the code remains unchanged) */}
-        </div>
-        <div className="d-flex">
+        <div className="d-flex order-lg-2">
           {user ? (
             <>
               <span className="d-flex align-items-center fs-5 me-3">Witaj: {user.username}</span>
@@ -97,6 +82,36 @@ const Navbar: React.FC<NavbarProps> = ({ user, setUser }) => {
               </button>
             </>
           )}
+        </div>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                Strona główna
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/activeEvents" className="nav-link">
+                Aktywne Wydarzenia
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link">
+                Kontakt
+              </Link>
+            </li>
+          </ul>
         </div>
         <Modal
           isOpen={isModalOpen}
