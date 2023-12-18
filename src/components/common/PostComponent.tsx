@@ -27,7 +27,7 @@ function PostComponent() {
           <div className="row">
             <div className="col">
               {posts.map((post) => (
-                <div key={post.id} className="mb-3">
+                <div key={post.id} className="mb-3 bg-white p-3 border border-2 border-dark rounded">
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
                   <p>

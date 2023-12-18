@@ -35,7 +35,7 @@ function AddPostComponent({ onPostAdded }: AddPostComponentProps) {
   };
 
   return (
-    <div className="mb-3">
+    <div className="mb-3 bg-white p-3 border border-2 border-dark rounded">
       <h3>Dodaj post</h3>
       <form>
         <div className="mb-3">
